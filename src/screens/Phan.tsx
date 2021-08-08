@@ -3,27 +3,48 @@
 import { StepBackwardOutlined, StepForwardOutlined } from "@ant-design/icons";
 import { css, jsx } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Button, Carousel, Image } from "antd";
+import { Button, Carousel, Image, Input } from "antd";
 import { CarouselRef } from "antd/lib/carousel";
-import { FC, useRef, useState } from "react";
+import { FC, useRef } from "react";
+import { Link } from "react-router-dom";
 
-interface IStyleProps {
-  color: string;
-}
-
-const backGround = (props: IStyleProps) =>
+const backGround = () =>
   css({
     height: "100vh",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    flexDirection: "column",
     ".select-phan-bg": {
+      flexDirection: "row",
       width: 299,
       height: 299,
       borderRadius: "50%",
       backgroundColor: "white",
       boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
       textAlign: "center",
+      marginTop: "1.5rem",
+    },
+    ".section-1": {
+      color: "white",
+      fontSize: 24,
+      marginTop: "1.5rem",
+    },
+    ".form-input": {
+      marginTop: "1rem",
+      display: "flex",
+    },
+    "@media (min-width: 940px)": {
+      ".section-1": {
+        fontSize: 48,
+      },
+      ".select-phan-bg": {
+        width: "30vw",
+        height: "30vw",
+      },
+      ".ant-image": {
+        width: "20vw !important",
+      },
     },
   });
 
@@ -36,10 +57,6 @@ const carosel = css({
 });
 
 const images = [
-  {
-    src: "./images/phan.png",
-    width: 155,
-  },
   {
     src: "./images/phan2.png",
     width: 200,
@@ -57,8 +74,6 @@ const colorBgPattern = (index: number) => {
 
 const Phan: FC = () => {
   const slider = useRef<CarouselRef>(null);
-  const [bgColor, setBgColor] = useState("#D3B26D");
-  const [phan, setPhan] = useState(images);
 
   const onNext = () => {
     slider.current?.next();
@@ -69,14 +84,13 @@ const Phan: FC = () => {
   };
 
   const sideEffect = (currentSlider: number) => {
-    console.log(currentSlider);
     document.body.style.backgroundColor = colorBgPattern(currentSlider);
-    // setBgColor(colorBgPattern(2));
   };
 
   console.log(slider.current);
   return (
-    <Container color={bgColor}>
+    <Container>
+      <div className="section-1">เลือกพานที่คุณต้องการ</div>
       <div className="select-phan-bg">
         <Carousel
           dots={false}
@@ -84,12 +98,13 @@ const Phan: FC = () => {
           ref={slider}
           afterChange={sideEffect}
         >
-          {phan.map((item, index) => {
+          {images.map((item, index) => {
             return (
               <div css={carosel} key={index}>
                 <Image
                   src={item.src}
                   width={item.width}
+                  className="test"
                   preview={{
                     mask: null,
                   }}
@@ -110,6 +125,14 @@ const Phan: FC = () => {
             size="large"
             onClick={onPrev}
           ></Button>
+        </div>
+        <div className="form-input">
+          <Input placeholder="ตั้งชื่อพาน (Optional)" />
+          <Link to="/video1">
+            <Button size="large" type="primary">
+              ต่อไป
+            </Button>
+          </Link>
         </div>
       </div>
     </Container>

@@ -3,6 +3,7 @@
 import { css, jsx } from "@emotion/react";
 import { Button, Image } from "antd";
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
 const backGround = css({
   background: `radial-gradient(78.56% 48.1% at 50% 50%, #E6D7B5 22.4%, #D3B26D 59.37%)`,
@@ -108,9 +109,11 @@ const Landing: FC = () => {
           <span id="head-2">ประจำปีการศึกษา 2564</span>
         </div>
         <div>
-          <Button size="large" id="play">
-            ร่วมกิจกรรม
-          </Button>
+          <Link to="/tray">
+            <Button size="large" id="play">
+              ร่วมกิจกรรม
+            </Button>
+          </Link>
         </div>
         <div className="logo">
           <Image
@@ -135,9 +138,11 @@ const Landing: FC = () => {
             marginTop: 33,
           })}
         >
-          <Button size="large" id="play">
-            ร่วมกิจกรรม
-          </Button>
+          <Link to="/tray">
+            <Button size="large" id="play">
+              ร่วมกิจกรรม
+            </Button>
+          </Link>
         </div>
       </div>
       {/* credit  */}

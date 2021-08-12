@@ -13,6 +13,7 @@ const Video1 = () => {
   const onEndVideo = () => {
     setCanNext(true);
   };
+
   return (
     <div
       css={css({
@@ -22,7 +23,10 @@ const Video1 = () => {
       })}
     >
       <Card
-        style={{ width: "90%" }}
+        css={css({
+          width: "90%",
+          maxWidth: 1000,
+        })}
         cover={
           <ReactPlayer
             url="https://www.youtube.com/watch?v=ApXoWvfEYVU"

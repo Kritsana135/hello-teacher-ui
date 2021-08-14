@@ -69,7 +69,7 @@ function App() {
           <Video2 step={step} setStep={setStep} />
         </Route>
         <Route path={path.greeting}>
-          <Greeting />
+          <Greeting setForm={setForm} formState={form} />
         </Route>
         <Route path={path.certificate}>
           <Certificate />

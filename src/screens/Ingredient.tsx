@@ -1,16 +1,10 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
 import { css, jsx } from "@emotion/react";
-import { Card, Col, Row, Checkbox, Button } from "antd";
-import Avatar from "antd/lib/avatar/avatar";
+import { Button, Card, Checkbox, Col, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
-import { GroupContext } from "antd/lib/checkbox/Group";
 import { Link } from "react-router-dom";
+import { path } from "../App";
 
 interface IIngredient {
   key: string;
@@ -102,7 +96,7 @@ const Ingredient = () => {
           marginTop: "1rem",
         })}
       >
-        <Link to="/phan">
+        <Link to={path.phan}>
           <Button type="primary" size="large" id="play">
             ไปต่อ
           </Button>

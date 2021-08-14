@@ -13,12 +13,12 @@ interface IVideo1Props {
   step: IStep;
 }
 
-const Video1: FC<IVideo1Props> = ({ step, setStep }) => {
-  const [canNext, setCanNext] = useState(step.watchVideo1);
+const Video2: FC<IVideo1Props> = ({ step, setStep }) => {
+  const [canNext, setCanNext] = useState(step.watchVideo2);
 
   const onEndVideo = () => {
     setCanNext(true);
-    setStep({ ...step, watchVideo1: true });
+    setStep({ ...step, watchVideo2: true });
   };
 
   return (
@@ -30,14 +30,13 @@ const Video1: FC<IVideo1Props> = ({ step, setStep }) => {
       })}
     >
       <Card
-        hoverable
         css={css({
           width: "90%",
           maxWidth: 1000,
         })}
         cover={
           <ReactPlayer
-            url="https://youtu.be/FbX5CxQP1ds"
+            url="https://www.youtube.com/watch?v=Vh44JLdNoeA"
             width="100%"
             onEnded={onEndVideo}
           />
@@ -52,7 +51,7 @@ const Video1: FC<IVideo1Props> = ({ step, setStep }) => {
             })}
           >
             <Link
-              to={path.ingredient}
+              to={path.certificate}
               css={css({
                 color: "inherit !important",
               })}
@@ -63,7 +62,7 @@ const Video1: FC<IVideo1Props> = ({ step, setStep }) => {
         ]}
       >
         <Meta
-          title="งานไหว้ครูประจำปีการศึกษา 2564"
+          title="คลิปโอวาทจากคณบดี"
           description="เมื่อท่านดูจบจึงสามารถไปขั้นตอนต่อไปได้"
         />
       </Card>
@@ -71,4 +70,4 @@ const Video1: FC<IVideo1Props> = ({ step, setStep }) => {
   );
 };
 
-export default Video1;
+export default Video2;

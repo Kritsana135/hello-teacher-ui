@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import { Button, Image, Input } from "antd";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IForm } from "../App";
 
@@ -121,6 +121,13 @@ const Landing: FC<ILandingProps> = ({ setForm, form }) => {
     }
   };
 
+  useEffect(() => {
+    if (form.studentId.length > 0) {
+      setIsEnter(true);
+      setIsDisableNext(false);
+    }
+  }, [form.studentId]);
+
   return (
     <div css={backGround}>
       <div css={header}>
@@ -137,6 +144,7 @@ const Landing: FC<ILandingProps> = ({ setForm, form }) => {
           {isEnter ? (
             <React.Fragment>
               <Input
+                value={form.studentId}
                 onChange={enterStudentId}
                 placeholder="รหัสนักศึกษา"
                 id="play"
@@ -187,6 +195,7 @@ const Landing: FC<ILandingProps> = ({ setForm, form }) => {
           {isEnter ? (
             <React.Fragment>
               <Input
+                value={form.studentId}
                 onChange={enterStudentId}
                 placeholder="รหัสนักศึกษา"
                 id="play"

@@ -5,8 +5,9 @@ import { css, jsx } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button, Carousel, Image, Input } from "antd";
 import { CarouselRef } from "antd/lib/carousel";
-import { FC, useRef } from "react";
+import { FC, useCallback, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { IForm, path } from "../App";
 
 const backGround = () =>
   css({
@@ -33,6 +34,9 @@ const backGround = () =>
     ".form-input": {
       marginTop: "1rem",
       display: "flex",
+      ".ant-input": {
+        height: "40px",
+      },
     },
     "@media (min-width: 940px)": {
       ".section-1": {
@@ -72,8 +76,16 @@ const colorBgPattern = (index: number) => {
   return colors[index % 3];
 };
 
-const Phan: FC = () => {
+const PHAN_TYPE = ["สวยงาม", "ความคิดสร้างสรรค์"];
+
+interface IPhanProps {
+  setForm: (value: IForm) => void;
+  form: IForm;
+}
+
+const Phan: FC<IPhanProps> = ({ form, setForm }) => {
   const slider = useRef<CarouselRef>(null);
+  const [phanType, setPhanType] = useState(PHAN_TYPE[0]);
 
   const onNext = () => {
     slider.current?.next();
@@ -83,8 +95,35 @@ const Phan: FC = () => {
     slider.current?.next();
   };
 
-  const sideEffect = (currentSlider: number) => {
-    document.body.style.backgroundColor = colorBgPattern(currentSlider);
+  const sideEffect = useCallback(
+    (currentSlider: number) => {
+      setForm({ ...form, phanType: PHAN_TYPE[currentSlider] });
+      setPhanType(PHAN_TYPE[currentSlider]);
+      document.body.style.backgroundColor = colorBgPattern(currentSlider);
+    },
+    [setPhanType, setForm, form]
+  );
+
+  const renderImage = useCallback(() => {
+    return images.map((item, index) => {
+      return (
+        <div css={carosel} key={index}>
+          <Image
+            src={item.src}
+            width={item.width}
+            className="test"
+            preview={{
+              mask: null,
+            }}
+          />
+        </div>
+      );
+    });
+  }, []);
+
+  const enterPhanName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newForm: IForm = { ...form, phanName: event.target.value };
+    setForm(newForm);
   };
 
   console.log(slider.current);
@@ -98,23 +137,9 @@ const Phan: FC = () => {
           ref={slider}
           afterChange={sideEffect}
         >
-          {images.map((item, index) => {
-            return (
-              <div css={carosel} key={index}>
-                <Image
-                  src={item.src}
-                  width={item.width}
-                  className="test"
-                  preview={{
-                    mask: null,
-                  }}
-                />
-              </div>
-            );
-          })}
+          {renderImage()}
         </Carousel>
         <div>
-          {slider.current}
           <Button
             icon={<StepBackwardOutlined />}
             size="large"
@@ -127,8 +152,16 @@ const Phan: FC = () => {
           ></Button>
         </div>
         <div className="form-input">
-          <Input placeholder="ตั้งชื่อพาน (Optional)" />
-          <Link to="/video1">
+          <Input
+            value={form.phanName}
+            addonBefore={phanType}
+            placeholder="ตั้งชื่อพาน (Optional)"
+            css={css({
+              height: "40px",
+            })}
+            onBlur={enterPhanName}
+          />
+          <Link to={path.greeting}>
             <Button size="large" type="primary">
               ต่อไป
             </Button>

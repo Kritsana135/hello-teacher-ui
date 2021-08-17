@@ -125,7 +125,7 @@ const Ingredient: FC<IIngredientProps> = ({ formState, setForm }) => {
           marginTop: "1.5rem",
         })}
       >
-        เลือกพานที่คุณต้องการ
+        เลือกดอกไม้ ธูปเทียน ทำพานไหว้ครู
       </div>
       <div
         css={css({

@@ -38,12 +38,7 @@ const Greeting: FC<IGreetingProps> = ({ formState, setForm }) => {
   };
 
   return (
-    <Form
-      form={form}
-      name="basic"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-    >
+    <Form form={form} name="basic" onFinish={onFinish}>
       <div
         css={css({
           display: "flex",

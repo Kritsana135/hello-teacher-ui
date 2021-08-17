@@ -30,6 +30,7 @@ export interface IForm {
   phanName: string;
   phanType: string;
   nameTitle: string;
+  ingredient: string;
 }
 
 export interface IStep {
@@ -46,6 +47,7 @@ function App() {
     phanName: "",
     phanType: "",
     nameTitle: "",
+    ingredient: "",
   });
   const [step, setStep] = useLocalStorage<IStep>("step", {
     watchVideo1: false,
@@ -58,7 +60,9 @@ function App() {
         <Route exact path={path.landing}>
           <Landing setForm={setForm} form={form} />
         </Route>
-        <Route path={path.ingredient} component={Ingredient} />
+        <Route path={path.ingredient}>
+          <Ingredient setForm={setForm} formState={form} />
+        </Route>
         <Route path={path.phan}>
           <Phan setForm={setForm} form={form} />
         </Route>
@@ -72,7 +76,7 @@ function App() {
           <Greeting setForm={setForm} formState={form} />
         </Route>
         <Route path={path.certificate}>
-          <Certificate />
+          <Certificate setForm={setForm} formState={form} />
         </Route>
       </Switch>
     </Router>

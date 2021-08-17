@@ -3,8 +3,9 @@
 import { css, jsx } from "@emotion/react";
 import { Button, Card, Checkbox, Col, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
-import { Link } from "react-router-dom";
-import { path } from "../App";
+import { FC, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { IForm, path } from "../App";
 
 interface IIngredient {
   key: string;
@@ -17,62 +18,90 @@ interface IIngredient {
 const ingredients: Array<IIngredient> = [
   {
     key: "1",
-    image:
-      "https://th.toluna.com//dpolls_images/2020/10/27/483d7af2-c2ff-4a5f-ac69-b67e07d3a3fc.jpg",
+    image: "/images/1.jpg",
     title: "ดอกมะเขือ",
     description: "เป็นสัญลักษณ์ของความเคารพ ความอ่อนน้อม",
-    alt: "example",
+    alt: "ดอกมะเขือ",
   },
   {
     key: "2",
-    image:
-      "https://th.toluna.com//dpolls_images/2020/10/27/483d7af2-c2ff-4a5f-ac69-b67e07d3a3fc.jpg",
-    title: "ดอกมะเขือ",
-    description: "เป็นสัญลักษณ์ของความเคารพ ความอ่อนน้อม",
-    alt: "example",
+    image: "/images/2.jpg",
+    title: "ข้าวตอก",
+    description: "เป็นสัญลักษณ์ของความมีระเบียบวินัย",
+    alt: "ข้าวตอก",
   },
   {
     key: "3",
-    image:
-      "https://th.toluna.com//dpolls_images/2020/10/27/483d7af2-c2ff-4a5f-ac69-b67e07d3a3fc.jpg",
-    title: "ดอกมะเขือ",
-    description: "เป็นสัญลักษณ์ของความเคารพ ความอ่อนน้อม",
-    alt: "example",
+    image: "/images/3.jpg",
+    title: "ดอกเข็ม",
+    description: "เป็นสัญลักษณ์ที่แสดงถึงปัญญาที่เฉียบแหลม",
+    alt: "ดอกเข็ม",
   },
   {
     key: "4",
-    image:
-      "https://th.toluna.com//dpolls_images/2020/10/27/483d7af2-c2ff-4a5f-ac69-b67e07d3a3fc.jpg",
-    title: "ดอกมะเขือ",
-    description: "เป็นสัญลักษณ์ของความเคารพ ความอ่อนน้อม",
-    alt: "example",
+    image: "/images/4.jpg",
+    title: "ธูปเทียน",
+    description: "เป็นสัญลักษณ์ที่แสดงถึงการเคารพครูบา-อาจารย์ ",
+    alt: "ธูปเทียน",
   },
   {
     key: "5",
-    image:
-      "https://th.toluna.com//dpolls_images/2020/10/27/483d7af2-c2ff-4a5f-ac69-b67e07d3a3fc.jpg",
-    title: "ดอกมะเขือ",
-    description: "เป็นสัญลักษณ์ของความเคารพ ความอ่อนน้อม",
-    alt: "example",
+    image: "/images/5.jpg",
+    title: "หญ้าแพรก",
+    description: "เป็นสัญลักษณ์ที่แสดงการแพร่เจริญความงอกงามของสติปัญญา",
+    alt: "หญ้าแพรก",
   },
   {
     key: "6",
-    image:
-      "https://th.toluna.com//dpolls_images/2020/10/27/483d7af2-c2ff-4a5f-ac69-b67e07d3a3fc.jpg",
-    title: "ดอกมะเขือ",
-    description: "เป็นสัญลักษณ์ของความเคารพ ความอ่อนน้อม",
-    alt: "example",
+    image: "/images/6.jpg",
+    title: "ดอกไม้สวยงาม",
+    description: "มีกลิ่นหอมที่เป็นเอกลักษณ์ และสร้างความสดชื่นให้แก่ผู้พบเห็น",
+    alt: "ดอกไม้สวยงาม",
   },
 ];
 
-const Ingredient = () => {
+interface IIngredientProps {
+  setForm: (value: IForm) => void;
+  formState: IForm;
+}
+
+const Ingredient: FC<IIngredientProps> = ({ formState, setForm }) => {
+  const [selected, setSelected] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const history = useHistory();
+
+  const selectedIn = (index: number) => {
+    const newValue = [...selected];
+    newValue[index] = !newValue[index];
+    setSelected(newValue);
+  };
+
+  const setValue = () => {
+    let ingredient = "";
+    ingredients.forEach((value, index) => {
+      if (selected[index]) {
+        ingredient += " " + value.title;
+      }
+    });
+    setForm({ ...formState, ingredient });
+    history.push(path.phan);
+  };
+
   const renderCard = (data: IIngredient[]) => {
-    return data.map((item) => {
+    return data.map((item, index) => {
       return (
-        <Col xs={24} sm={12} lg={6}>
+        <Col xs={24} sm={12} lg={8} key={item.key}>
           <Card
             cover={<img alt={item.alt} src={item.image} />}
-            actions={[<Checkbox>เลือก</Checkbox>]}
+            actions={[
+              <Checkbox onClick={() => selectedIn(index)}>เลือก</Checkbox>,
+            ]}
           >
             <Meta title={item.title} description={item.description} />
           </Card>
@@ -83,24 +112,41 @@ const Ingredient = () => {
   return (
     <div
       css={css({
-        padding: "1rem",
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
       })}
     >
-      <Row gutter={16} justify="center" align="middle">
-        {renderCard(ingredients)}
-      </Row>
       <div
         css={css({
-          width: "100%",
-          textAlign: "center",
-          marginTop: "1rem",
+          color: "white",
+          fontSize: 30,
+          marginTop: "1.5rem",
         })}
       >
-        <Link to={path.phan}>
-          <Button type="primary" size="large" id="play">
+        เลือกพานที่คุณต้องการ
+      </div>
+      <div
+        css={css({
+          padding: "1rem",
+          maxWidth: 1200,
+        })}
+      >
+        <Row gutter={16} justify="center" align="middle">
+          {renderCard(ingredients)}
+        </Row>
+        <div
+          css={css({
+            width: "100%",
+            textAlign: "center",
+            marginTop: "1rem",
+          })}
+        >
+          <Button type="primary" size="large" id="play" onClick={setValue}>
             ไปต่อ
           </Button>
-        </Link>
+        </div>
       </div>
     </div>
   );

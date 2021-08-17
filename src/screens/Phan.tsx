@@ -5,7 +5,7 @@ import { css, jsx } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button, Carousel, Image, Input } from "antd";
 import { CarouselRef } from "antd/lib/carousel";
-import { FC, useCallback, useRef, useState } from "react";
+import { FC, useCallback, useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IForm, path } from "../App";
 
@@ -47,7 +47,7 @@ const backGround = () =>
         height: "30vw",
       },
       ".ant-image": {
-        width: "20vw !important",
+        width: "25vw !important",
       },
     },
   });
@@ -104,6 +104,10 @@ const Phan: FC<IPhanProps> = ({ form, setForm }) => {
     [setPhanType, setForm, form]
   );
 
+  useEffect(() => {
+    setForm({ ...form, phanType: PHAN_TYPE[0] });
+  }, []);
+
   const renderImage = useCallback(() => {
     return images.map((item, index) => {
       return (
@@ -111,7 +115,6 @@ const Phan: FC<IPhanProps> = ({ form, setForm }) => {
           <Image
             src={item.src}
             width={item.width}
-            className="test"
             preview={{
               mask: null,
             }}
@@ -126,7 +129,6 @@ const Phan: FC<IPhanProps> = ({ form, setForm }) => {
     setForm(newForm);
   };
 
-  console.log(slider.current);
   return (
     <Container>
       <div className="section-1">เลือกพานที่คุณต้องการ</div>
@@ -136,6 +138,9 @@ const Phan: FC<IPhanProps> = ({ form, setForm }) => {
           effect="fade"
           ref={slider}
           afterChange={sideEffect}
+          css={css({
+            marginTop: "3rem",
+          })}
         >
           {renderImage()}
         </Carousel>
@@ -153,7 +158,7 @@ const Phan: FC<IPhanProps> = ({ form, setForm }) => {
         </div>
         <div className="form-input">
           <Input
-            value={form.phanName}
+            defaultValue={form.phanName}
             addonBefore={phanType}
             placeholder="ตั้งชื่อพาน (Optional)"
             css={css({

@@ -60,7 +60,6 @@ const Certificate: FC<ICertificateProps> = ({ formState }) => {
     if (!pdf) {
       if (!id) {
         axios.post(`${BASE_API}/register`, formState).then(({ data }) => {
-          console.log(data);
           const { id, pdfBase64 } = data;
           setId(id);
           setPdf(pdfBase64);
@@ -72,7 +71,6 @@ const Certificate: FC<ICertificateProps> = ({ formState }) => {
             id,
           })
           .then(({ data }) => {
-            console.log(data);
             const { pdfBase64 } = data;
             setPdf(pdfBase64);
             setLoading(false);

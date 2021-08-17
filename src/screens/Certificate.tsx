@@ -5,10 +5,11 @@ import { Button, Card, Spin } from "antd";
 import Meta from "antd/lib/card/Meta";
 import axios from "axios";
 import { FC, useEffect, useState } from "react";
-import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 import { IForm } from "../App";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { saveAs } from "file-saver";
+import { pdfjs, Document, Page } from "react-pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 interface ICertificateProps {
   setForm: (value: IForm) => void;

@@ -66,6 +66,9 @@ const headerText = css({
     "#head-2": {
       fontSize: "48px",
     },
+    "#head-3": {
+      fontSize: "26px",
+    },
   },
 });
 
@@ -135,6 +138,7 @@ const Landing: FC<ILandingProps> = ({ setForm, form }) => {
         <div css={headerText}>
           <span id="head-1">พิธีไหว้ครู</span>
           <span id="head-2">ประจำปีการศึกษา 2564</span>
+          <span id="head-3">มหาวิทยาลัยเทคโนโลยีราชมงคลตะวันออก</span>
         </div>
         <div
           css={css({

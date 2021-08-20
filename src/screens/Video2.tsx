@@ -62,7 +62,7 @@ const Video2: FC<IVideo1Props> = ({ step, setStep }) => {
         ]}
       >
         <Meta
-          title="คลิปโอวาทจากคณบดี"
+          title="คลิปโอวาทจากอธิการบดี"
           description="เมื่อท่านดูจบจึงสามารถไปขั้นตอนต่อไปได้"
         />
       </Card>

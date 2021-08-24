@@ -37,7 +37,7 @@ const Video1: FC<IVideo1Props> = ({ step, setStep }) => {
         })}
         cover={
           <ReactPlayer
-            url="https://youtu.be/FbX5CxQP1ds"
+            url="https://youtu.be/E8t-bn3imjA"
             width="100%"
             onEnded={onEndVideo}
           />

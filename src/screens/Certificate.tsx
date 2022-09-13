@@ -15,7 +15,7 @@ interface ICertificateProps {
   formState: IForm;
 }
 
-const BASE_API = "https://hello-teacher.61050135.workers.dev";
+const BASE_API = process.env.REACT_APP_API
 
 const Certificate: FC<ICertificateProps> = ({ formState }) => {
   const [loading, setLoading] = useState(true);
